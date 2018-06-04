@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+          
+
+<head>
+    <meta charset="utf-8"/>  
+    <title>Food Buttons</title>
+    <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+</head>
+
+<body>
+<button data-search="hamburger">A Billion Sold</button>
+<button data-search="hot dogs">No Ketchup Allowed</button>
+<button data-search="pizza">Thick Crust Only</button>
+<button data-search="coffee">A Cup of Joe</button>
+<button data-search="beer">Barley and Hops</button>
+<button data-search="wine">Some Vino?</button>
+<button data-search="vegetables">Eat Your Veggies</button>
+<button data-search="cookies">Cookies</button>
+
+<div id ="GIFarea"></div>
+
+<script type="text/javascript">
+$("button").on("click", function () {
+      var x = $(this).data("search");
+
+var queryURL = "http://api.giphy.com/v1/gifs/search?q="+x+"&api_key=XT43nNlQBtSzjm90n8hV4ApaqNgRwoo6&limit=10";
+console.log(queryURL);
+
+$.ajax({url:queryURL,method:"GET"})
+.done(function(response){ $('#GIFarea').empty()
+         console.log(response);
+         for (var i=0;i<response.data.length;i++){
+             console.log(i);
+             var gif = $('<span>');
+             gif.append($('<img>').attr("src",response.data[i].images.downsized.url ));
+             gif.append($('<p>').text(response.data[i].rating));
+        
+         $('#GIFarea').prepend(gif);
+         }
+});
+})
+      
+
+</script>
+
+</body>   
+</html> 
+ 
+
+
+
+
+
+
+  
+
+
